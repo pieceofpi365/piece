@@ -1063,16 +1063,16 @@ uint256 static GetOrphanRoot(const CBlockHeader* pblock)
 
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
-    int64 nSubsidy = 1 * COIN;
+    int64 nSubsidy = 7 * COIN;
 
     // Subsidy is cut in half every 2178892 blocks, which will occur approximately every 108.08 days
-    nSubsidy >>= (nHeight / 2178892); // PieceOfPi: 2.178892 blocks in ~108.08 days
+    nSubsidy >>= (nHeight / 311270); // PieceOfPi: 2.178892 blocks in ~108.08 days
 
     return nSubsidy + nFees;
 }
 
 static const int64 nTargetTimespan = 1 * 24 * 60 * 60; // PieceOfPi: 1 day
-static const int64 nTargetSpacing = .07 * 60; // PieceOfPi: 4.2 seconds
+static const int64 nTargetSpacing = .5 * 60; // PieceOfPi: 30 seconds
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 //
@@ -2756,12 +2756,12 @@ bool InitBlockIndex() {
         //   vMerkleTree: 97ddfbbae6
 
         // Genesis block
-        const char* pszTimestamp = "01/27/2021 Have another Piece!";
+        const char* pszTimestamp = "01/27/2021 Have A Piece!";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CBigNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 1 * COIN;
+        txNew.vout[0].nValue = 7 * COIN;
         txNew.vout[0].scriptPubKey = CScript() << ParseHex("045a758873437c902f7c14678658549d6306f1bf83eb6111dc1bf049aa73cfe528bce1b012bec412b41f899a8f903a934b3421f1d171330c370f71cdbbf6b35e72") << OP_CHECKSIG;
         CBlock block;
         block.vtx.push_back(txNew);
